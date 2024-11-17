@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RName (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "RName (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
