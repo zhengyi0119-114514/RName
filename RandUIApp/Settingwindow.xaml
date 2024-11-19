@@ -31,15 +31,29 @@
                     <RowDefinition Height="25"/>
                     <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
-                <CheckBox x:Name="IsRepeatCheckBox" Grid.Row="0" Content="Repeat" />
-                <CheckBox x:Name="MultipleChoicesCheckBox" Grid.Row="1" Content="MultipleChoices"/>
+                <CheckBox x:Name="IsRepeatCheckBox" Grid.Row="0" Content="Repeat" IsChecked="{Binding Path=IsRepeat}" Checked="IsRepeatCheckBox_Checked" />
+                <CheckBox x:Name="MultipleChoicesCheckBox" Grid.Row="1" Content="MultipleChoices" IsChecked="{Binding Path=IsMultipleChoices}"/>
                 <Label Content="SelectionTimes" HorizontalAlignment="Left" Width="170" Grid.Row="2" x:Name="SelectionTextLabel"/>
-                <ComboBox x:Name="SelectionTimesCombox" Grid.Row="2" HorizontalAlignment="Right" Width="100"/>
+                <ComboBox x:Name="SelectionTimesCombox" Grid.Row="2"  ItemsSource="{Binding Path=NumberList}"
+                          IsEnabled="{Binding Path = IsMultipleChoices}" SelectedValue="{Binding Path=MultipleChoicesTimes}" 
+                          HorizontalAlignment="Right" Width="100" SelectionChanged="SelectionTimesCombox_SelectionChanged"/>
                 <Label x:Name="NameListLabel" Grid.Row="4" Content="Names"/>
-                <Button x:Name="ImportFromTxtButton" Content="ImportFromTxt" HorizontalAlignment="Right" Width="170" Grid.Row="4" Click="ImportFromTxtButton_Click"/>
-                <CheckBox x:Name="IsCelebrateCheckBox" Content="IsCelebrate" Grid.Row="3"/>
-
-
+                <CheckBox x:Name="IsCelebrateCheckBox" Content="IsCelebrate" Grid.Row="3" IsChecked="{Binding Path=IsCelebrate}" />
+                <ListBox x:Name="NameMgrBox" Grid.Row="4" Grid.RowSpan="7" ItemsSource="{Binding Path=NameMgrBindingList}"
+                         SelectionMode="Extended" />
+                <Button x:Name="AddButton" Grid.Row="11" HorizontalAlignment="Left" Width="70" Margin="0,0,0,0" Content="New" Click="AddButton_Click"/>
+                <TextBox x:Name="AddTextBox" Grid.Row="11" Margin="70,0,0,0"/>
+                <Button x:Name="DisableNameButton" Grid.Row="12" HorizontalAlignment="Left" Width="70" Content="Disable" 
+                        Click="DisableNameButton_Click"/>
+                <Button x:Name="EnableNameButton" Grid.Row ="12" HorizontalAlignment="Left" Margin="70,0,0,0" 
+                        Content ="Enable" Width="70" Click="EnableNameButton_Click"/>
+                <Button x:Name="ImportFromTxtButton" Content="ImportFromTxt" Grid.Row="12" 
+                        Click="ImportFromTxtButton_Click" Margin="343,0,0,0"/>
+                <Button x:Name="DeleteNumberButton" Grid.Row="12" HorizontalAlignment="Left" Margin="140,0,0,0" Width="70"
+                        Content="Delete" Click="DeleteNumberButton_Click"/>
+                <Label x:Name="LanguageLabel" Grid.Row="13" HorizontalAlignment="Left" Width="210" Content="language"/>
+                <ComboBox x:Name="SelectionLanguageCombobox" Grid.Row="13" HorizontalAlignment="Right" Width="70" 
+                          ItemsSource="{Binding Path=LanguageList}" SelectedValue="{Binding Path=DefaultLanguage}" SelectionChanged="SelectionLanguageCombobox_SelectionChanged" />
             </Grid>
         </ScrollViewer>
     </Grid>

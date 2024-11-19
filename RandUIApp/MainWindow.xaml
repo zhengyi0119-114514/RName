@@ -16,21 +16,21 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="93*"/>
+            <ColumnDefinition Width="232*"/>
+            <ColumnDefinition Width="232*"/>
+            <ColumnDefinition Width="93*"/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="ShowBox" Text="恭喜大怨种中奖" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
-                 Margin="0,0,0,0" FontSize="40" IsReadOnly="True"/>
-        <ListBox x:Name="ResultListBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,30,0,0"  
-                 ItemsSource="{Binding Path=ResultList}"/>
-        <Button x:Name="SettingButtom" Width="30" Height="30" FontFamily="./Date/#Symbols Nerd Font" Content="" Margin="0,0,0,0" 
+        <TextBox x:Name="ShowBox" Text="恭喜大怨种中奖" Grid.Column="1" Grid.ColumnSpan="2" 
+                 Margin="0,62,0,0" FontSize="40" IsReadOnly="True" Grid.RowSpan="2"/>
+        <ListBox x:Name="ResultListBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,30,0,62"  
+                 ItemsSource="{Binding Path=ResultList}" Grid.RowSpan="2"/>
+        <Button x:Name="SettingButton" Width="30" Height="30" FontFamily="./Date/#Symbols Nerd Font" Content="" Margin="0,0,0,0" 
                 VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="White" Background="White" Click="SettingButtom_Click"/>
-        <Button x:Name="ToggleButton" Grid.Row="2" Grid.Column="1" Height="30" Margin="0,0,0,0" VerticalAlignment="Top" 
-                Content="Test Date" Click="ToggleButton_Click"/>
-        <Button x:Name="ClearButtom" Grid.Column="2" Grid.Row="2" Height="30" 
-                Margin="0,0,0,0" VerticalAlignment="Top" Content ="ClearButtomTestText" Click="ClearButtom_Click"/>
-        
+        <Button x:Name="BallotButton" Grid.Row="1" Grid.Column="1" Height="30" Margin="0,155,0,0" VerticalAlignment="Top" 
+                Content="Test Date" Click="ToggleButton_Click" Grid.RowSpan="2"/>
+        <Button x:Name="ClearButton" Grid.Column="2" Grid.Row="1" Height="30" 
+                Margin="0,155,0,0" VerticalAlignment="Top" Content ="ClearButtonTestText" Click="ClearButtom_Click" Grid.RowSpan="2"/>
+
     </Grid>
 </Window>

@@ -20,82 +20,105 @@ namespace RandUIApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        Random m_random = new();   
         MainWindowDateBinding binding;
         public MainWindow()
         {
+            
             InitializeComponent();
-            this.DataContext = new MainWindowDateBinding();
-            binding = (MainWindowDateBinding)this.DataContext;
-            //binding.ResultList.Add("TEXT");
+            binding = new MainWindowDateBinding();
+            binding.LoadFromXmlConfigFile("./Date/app.cfg");
+            binding.InitLanguageList();
+            _initLanguage($"./Date/Lang/{binding.DefaultLanguage}.xml");
+            this.DataContext = binding;
             _SetTextCN();
         }
-
+        private void _initLanguage(String cfgFilePath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(cfgFilePath);
+            var root = xmlDoc.DocumentElement!;
+            XmlElement info = (XmlElement)root.FirstChild!;
+            XmlElement sub = (XmlElement)root.LastChild!;
+            foreach (XmlElement subElement in sub.ChildNodes)
+            {
+                switch (subElement.Name)
+                {
+                    case nameof(BallotButton):
+                        BallotButton.Content = subElement.InnerText;
+                        break;
+                    case nameof(ClearButton):
+                        ClearButton.Content = subElement.InnerText;
+                        break;
+                    case nameof(binding.ClelbrateFormat):
+                        binding.ClelbrateFormat = subElement.InnerText;
+                        break;
+                    case nameof(binding.ClelbrateNothing):
+                        binding.ClelbrateNothing = subElement.InnerText;
+                        break;
+                }
+            }
+        }
         private void SettingButtom_Click(object sender, RoutedEventArgs e)
         {
-            new Settingwindow(this.DataContext).ShowDialog();
+            new Settingwindow(this.binding).ShowDialog();
+            _initLanguage(binding.LanguageFile);
         }
-
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            MainWindowDateBinding? m = this.DataContext as MainWindowDateBinding;
-            m?.SaveAsXMLConfigFile("./Date/app.cfg");
+            binding.SaveToXMLFile("./Date/app.cfg");
         }
         private void _SetTextCN()
         {
-            ClearButtom.Content = "清除";
-            ToggleButton.Content = "切换";
+            ClearButton.Content = "清除";
+            BallotButton.Content = "抽签";
         }
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            binding.ResultList.Clear();
-            Random random = new Random(new Random().Next());
-            Int32 times = 1;
-            ObservableCollection<String> enble = new ObservableCollection<String>();
-            if(binding.IsRepeat)
+            Int32 times = 0;
+            StringBuilder sb = new StringBuilder();
+            if(binding.IsMultipleChoices)
             {
-                times = binding.RepeatTimes;
+                times = binding.MultipleChoicesTimes;
             }
-            if (times <1)
+            else
             {
-                times = 1;
+                times++;
             }
-            foreach(String s in binding.NameList)
-            {
-                if (!binding.DisableList.Contains(s))
-                {
-                    enble.Add(s);
-                }
-            }
-            if((!binding.IsRepeat)&&(times>enble.Count))
-            {
-                binding.ResultList = enble;
-            }
-            string? item = "";
+            string[] strings = binding.NameEnableDictionary.Where((p)=>p.Value).Select((p)=> p.Key).ToArray();
             for (int i = 0; i < times; i++)
             {
-                item = enble[random.Next(enble.Count)];
                 if(!binding.IsRepeat)
                 {
-                    enble.Remove(item);
+                    strings = binding.NameEnableDictionary.Where((p) => p.Value)
+                        .Where((p) => !binding.ResultList.Contains(p.Key))
+                        .Select((p) => p.Key).ToArray();
                 }
-                binding.ResultList.Add(item);
+                if(strings.Length == 0)
+                {
+                    if (binding.IsCelebrate)
+                    {
+                        MessageBox.Show(binding.ClelbrateNothing);
+                    }
+                    return;
+                }
+                String r = strings[Math.Abs(m_random.Next()%strings.Length)];
+                sb.AppendLine(String.Format(binding.ClelbrateFormat, r));
+                binding.ResultList.Add(r);
             }
-            if (times == 1)
+            ShowBox.Text = sb.ToString();
+            if(binding.IsCelebrate)
             {
-                ShowBox.Text = $"恭喜幸运的{binding.ResultList[0]}中dai奖";
+                new CelebrateBox().ShowDialog(sb.ToString());
             }
-
         }
 
         private void ClearButtom_Click(object sender, RoutedEventArgs e)
         {
             binding.ResultList.Clear();
+            ShowBox.Text = string.Empty;
         }
     }
 
-    public partial class MainWindowDateBinding : INotifyPropertyChanged
-    {
-
-    }
 }

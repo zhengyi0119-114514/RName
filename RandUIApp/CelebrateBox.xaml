@@ -1,0 +1,14 @@
+﻿<Window x:Class="RandUIApp.CelebrateBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RandUIApp"
+        mc:Ignorable="d"
+        Title="CelebrateBox" Height="450" Width="800" ResizeMode="NoResize" FontFamily="./Date/#Yozai">
+    <Grid>
+        <TextBox x:Name="ShowTextBox" FontSize="70" Margin="0,0,0,20" FontStyle="Italic" FontWeight="Bold" TextDecorations="Underline" 
+                   Background="#FFE3FAFF" Foreground="Red" IsReadOnly="True"/>
+        <Button x:Name="OkButton" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" Content="OK" Click="OkButton_Click"/>
+    </Grid>
+</Window>

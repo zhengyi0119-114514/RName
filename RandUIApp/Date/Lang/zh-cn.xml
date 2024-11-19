@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<lang>
+  <info name ="简体中文"/>
+  <sub>
+    <BallotButton>摇号</BallotButton>
+    <ClearButton>清除</ClearButton>
+    
+    <IsRepeatCheckBox>重复选择</IsRepeatCheckBox>
+    <MultipleChoicesCheckBox>多次抽签</MultipleChoicesCheckBox>
+    <SelectionTextLabel>抽签次数</SelectionTextLabel>
+    <IsCelebrateCheckBox>幸灾乐祸</IsCelebrateCheckBox>
+    <AddButton>添加</AddButton>
+    <DisableNameButton>禁用</DisableNameButton>
+    <EnableNameButton>启用</EnableNameButton>
+    <DeleteNumberButton>删除</DeleteNumberButton>
+    <ImportFromTxtButton>从txt文件导入</ImportFromTxtButton>
+    <LanguageLabel>语言</LanguageLabel>
+    <ClelbrateFormat>恭喜{0}中奖</ClelbrateFormat>
+    <ClelbrateNothing>所有人都被点了一遍力，还想怎样</ClelbrateNothing>
+  </sub>
+</lang>
